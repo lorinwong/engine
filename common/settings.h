@@ -164,6 +164,8 @@ struct Settings {
   // associated resources.
   bool leak_vm = true;
 
+  bool shut_down_vm = false;
+
   // Engine settings
   TaskObserverAdd task_observer_add;
   TaskObserverRemove task_observer_remove;

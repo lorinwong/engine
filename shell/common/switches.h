@@ -193,6 +193,10 @@ DEF_SWITCH(DomainNetworkPolicy,
            "JSON encoded network policy per domain. This overrides the "
            "DisallowInsecureConnections switch. Embedder can specify whether "
            "to allow or disallow insecure connections at a domain level.")
+DEF_SWITCH(ShutdownDartVmWhenDone,
+           "shutdown-dart-vm-when-done",
+           "All shells in the process share the same VM. "
+		   "The last shell to shutdownshould typically shut down the VM as well.")
 DEF_SWITCH(
     ForceMultithreading,
     "force-multithreading",

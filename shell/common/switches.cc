@@ -269,6 +269,9 @@ Settings SettingsFromCommandLine(const fml::CommandLine& command_line) {
   settings.start_paused =
       command_line.HasOption(FlagForSwitch(Switch::StartPaused));
 
+  settings.shut_down_vm =
+      command_line.HasOption(FlagForSwitch(Switch::ShutdownDartVmWhenDone));
+
   settings.enable_checked_mode =
       command_line.HasOption(FlagForSwitch(Switch::EnableCheckedMode));
 

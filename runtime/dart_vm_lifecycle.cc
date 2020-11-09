@@ -61,7 +61,17 @@ DartVMRef DartVMRef::Create(Settings settings,
                          "already running. Ignoring arguments for current VM "
                          "create call and reusing the old VM.";
     // There was already a running VM in the process,
-    return DartVMRef{std::move(vm)};
+    DartVMRef dartVMRef = DartVMRef{std::move(vm)};
+	
+	if (settings.shut_down_vm) {
+		gVM.reset();
+		gVMLeak->reset();
+		FML_LOG(ERROR) << "wanghelong **********0000000000." << " gVM = " << gVM.lock() 
+					   << " gVMLeak.count = " << gVMLeak->use_count();
+	} else {
+	  FML_LOG(ERROR) << "wanghelong **********111111111111.";
+	}
+	return dartVMRef;
   }
 
   std::scoped_lock dependents_lock(gVMDependentsMutex);
@@ -90,8 +100,11 @@ DartVMRef DartVMRef::Create(Settings settings,
   gVMIsolateNameServer = isolate_name_server;
   gVM = vm;
 
-  if (settings.leak_vm) {
+  if (!settings.shut_down_vm) {
     gVMLeak = new std::shared_ptr<DartVM>(vm);
+	FML_LOG(ERROR) << "wanghelong **********22222222222.";
+  } else {
+    FML_LOG(ERROR) << "wanghelong **********33333333333.";
   }
 
   return DartVMRef{std::move(vm)};
